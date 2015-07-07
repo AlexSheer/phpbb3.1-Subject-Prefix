@@ -1,0 +1,42 @@
+<!-- INCLUDE overall_header.html -->
+<a name="maincontent"></a>
+
+<h1>{L_ACP_SUB_PREFIX}</h1>
+<p>{L_ACP_SUB_PREFIX_EXPLAIN}</p>
+
+<form method="post" action="{U_ACTION}">
+	<fieldset>
+		<legend>{L_LOOK_UP_FORUM}</legend>
+	<dl>
+		<dt><label for="forum">{L_LOOK_UP_FORUM}{L_COLON}</label><br /><span>{L_FORUMS_EXPLAIN}</span></dt>
+		<dd><select id="forum" name="forum_id[]" multiple="multiple" size="10">{S_FORUM_OPTIONS}</select></dd>
+	</dl>
+	</fieldset>
+	<div style="display: -moz-box;">
+		<fieldset style="margin-right: 4px;" class="fields1 column1">
+			<legend>{L_PREFIXES}</legend>
+			<!-- BEGIN prefixes -->
+			<dd><input name="prefixes[]" type="text" value="{prefixes.PREFIX}">&nbsp;
+			<a href="{prefixes.U_DELETE}"><img src="{ROOT_PATH}/adm/images/icon_delete.gif" alt="{L_DELETE}" title="{L_DELETE}"></a>
+			<!-- END prefixes -->
+			<dt><label for="prefix_name">{L_ADD}{L_COLON}</label></dt>
+			<dd><input id="prefix_name" size="40" maxlength="255" name="prefix_name" value="{PREFIX_NAME}" type="text"></dd>
+		</fieldset>
+
+		<fieldset class="fields1 column2">
+			<legend>{L_PREFIXES}</legend>
+			<!-- BEGIN prefixes_second -->
+			<dd><input name="prefixes_second[]" type="text" value="{prefixes_second.PREFIX}">&nbsp;
+			<a href="{prefixes_second.U_DELETE}"><img src="{ROOT_PATH}adm/images/icon_delete.gif" alt="{L_DELETE}" title="{L_DELETE}"></a>
+			<!-- END prefixes_second -->
+			<dt><label for="prefix_name_second">{L_ADD}{L_COLON}</label></dt>
+			<dd><input id="prefix_name_second" size="40" maxlength="255" name="prefix_name_second" value="{PREFIX_NAME_SECOND}" type="text"></dd>
+		</fieldset>
+	</div>
+	<p class="submit-buttons">
+		{S_HIDDEN_FIELDS}
+		{S_FORM_TOKEN}
+		<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+	</p>
+</form>
+<!-- INCLUDE overall_footer.html -->

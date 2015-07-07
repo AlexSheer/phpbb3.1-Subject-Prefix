@@ -1,0 +1,12 @@
+services:
+    sheer.sub_prfx.listener:
+        class: sheer\sub_prfx\event\listener
+        arguments:
+            - %core.root_path%
+            - @template
+            - @request
+            - @config
+            - @config_text
+            - @user
+        tags:
+            - { name: event.listener }
