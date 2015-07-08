@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* info_sub_prfx [Russian]
+* info_sub_prfx [English]
 *
 * @package phpBB Extension - Add Extra Links
 * @copyright (c) 2015 Sheer
