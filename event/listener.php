@@ -81,12 +81,20 @@ class listener implements EventSubscriberInterface
 
 	public function modify_subject($event)
 	{
+		$mode = $event['mode'];
 		$post_data = $event['post_data'];
 		$forums = explode(',', $this->config['sub_prfx_forums']);
-		if(!isset($event['post_data']['topic_id']) && in_array($event['post_data']['forum_id'], $forums))
+		$topic_first_post_id	= (isset($post_data['topic_first_post_id'])) ? $post_data['topic_first_post_id'] : 0;
+		$post_id				= (isset($post_data['post_id'])) ? $post_data['post_id'] : 0;
+		if(in_array($event['post_data']['forum_id'], $forums) && ($mode == 'post' || $mode == 'edit') && ($post_id == $topic_first_post_id || !$topic_first_post_id))
 		{
 			$prefix =			$this->request->variable('subprfx', 0);
 			$prefix_second =	$this->request->variable('subprfx_second', 0);
+			$subject = $event['post_data']['post_subject'];
+			if ($mode == 'edit')
+			{
+				$subject = array_pop(explode(']', $subject));
+			}
 
 			$options = $options_second = array(0 => $this->user->lang['SELECT']);
 			$options =			array_merge($options, explode(',', (string) $this->config_text->get('sub_prfx')));
@@ -94,12 +102,13 @@ class listener implements EventSubscriberInterface
 
 			if($prefix)
 			{
-				$second = '';
-				if($prefix_second)
-				{
-					$second = '['.$options_second[$prefix_second] . ']';
-				}
-				$post_data['post_subject'] = '['. $options[$prefix] . ']' . $second.$event['post_data']['post_subject'];
+				$second = ($prefix_second) ? '['.$options_second[$prefix_second] . ']' : '';
+				$post_data['post_subject'] = '['. $options[$prefix] . ']' . $second.$subject;
+				$event['post_data'] = $post_data;
+			}
+			else
+			{
+				$post_data['post_subject'] = $subject;
 				$event['post_data'] = $post_data;
 			}
 		}
@@ -107,15 +116,35 @@ class listener implements EventSubscriberInterface
 
 	public function edit_subject($event)
 	{
+		$mode = $event['mode'];
+		$post_data = $event['post_data'];
+		$topic_first_post_id	= (isset($event['post_data']['topic_first_post_id'])) ? $event['post_data']['topic_first_post_id'] : 0;
+		$post_id				= (isset($event['post_data']['post_id'])) ? $event['post_data']['post_id'] : 0;
+
 		$forums = explode(',', $this->config['sub_prfx_forums']);
-		if (in_array($event['forum_id'], $forums) && !$event['topic_id'])
+		if (in_array($event['forum_id'], $forums) && ($mode == 'post' || $mode == 'edit') && ($post_id == $topic_first_post_id || !$topic_first_post_id))
 		{
-			$prefix =			$this->request->variable('subprfx', 0);
-			$subprfx_second =	$this->request->variable('subprfx_second', 0);
+			if($mode == 'edit')
+			{
+				$subject_data = $event['post_data']['post_subject'];
+				$subject_data = explode(']', $subject_data);
+				$subject = array_pop($subject_data);
+				$subject_prfixes = array_diff($subject_data, array($subject));
+				foreach($subject_prfixes as $key => $pfx)
+				{
+					$subject_prfixes[$key] = str_replace('[', '', $pfx);
+				}
+			}
 
 			$options = $options_second = array(0 => $this->user->lang['SELECT']);
 			$options =			array_merge($options, explode(',', (string) $this->config_text->get('sub_prfx')));
 			$options_second =	array_merge($options_second, explode(',', (string) $this->config_text->get('sub_prfx_second')));
+
+			$key		= (isset($subject_prfixes[0])) ? array_search($subject_prfixes[0], $options) : 0;
+			$second_key	= (isset($subject_prfixes[1])) ? array_search($subject_prfixes[1], $options_second) : 0;
+
+			$prefix =			$this->request->variable('subprfx', $key);
+			$subprfx_second =	$this->request->variable('subprfx_second', $second_key);
 
 			$select = '';
 			if($options[1])
