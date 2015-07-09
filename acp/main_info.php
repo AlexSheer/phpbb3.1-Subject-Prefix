@@ -16,7 +16,7 @@ class main_info
 		return array(
 			'filename'	=> '\sheer\sub_prfx\acp\main_module',
 			'version'	=> '1.0.0',
-			'title' => 'ACP_SUB_PREFIX_MANAGE',
+			'title' => 'ACP_SUB_PREFIX',
 			'modes'		=> array(
 				'settings'	=> array(
 					'title' => 'ACP_SUB_PREFIX_MANAGE',
