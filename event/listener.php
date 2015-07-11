@@ -93,7 +93,8 @@ class listener implements EventSubscriberInterface
 			$subject = $event['post_data']['post_subject'];
 			if ($mode == 'edit')
 			{
-				$subject = array_pop(explode(']', $subject));
+				$subject = explode(']', $subject);
+				$subject = array_pop($subject);
 			}
 
 			$options = $options_second = array(0 => $this->user->lang['SELECT']);
@@ -102,8 +103,8 @@ class listener implements EventSubscriberInterface
 
 			if($prefix)
 			{
-				$second = ($prefix_second) ? '['.$options_second[$prefix_second] . ']' : '';
-				$post_data['post_subject'] = '['. $options[$prefix] . ']' . $second.$subject;
+				$second = ($prefix_second) ? '['.$options_second[$prefix_second] . '] ' : '';
+				$post_data['post_subject'] = '['. $options[$prefix] . ']' . (($second) ?: ' ') .$subject;
 				$event['post_data'] = $post_data;
 			}
 			else
