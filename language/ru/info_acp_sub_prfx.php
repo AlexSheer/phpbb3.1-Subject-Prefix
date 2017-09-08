@@ -35,7 +35,7 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'ACP_SUB_PREFIX'			=> 'Топик префикс',
+	'ACP_SUB_PREFIX'			=> 'Префикс темы',
 	'ACP_SUB_PREFIX_EXPLAIN'	=> 'Здесь вы можете изменить настройки расширения.',
 	'ACP_SUB_PREFIX_MANAGE'		=> 'Управление',
 	'FORUMS_EXPLAIN'			=> 'Форумы, в которых будет доступен выбор префикса',
