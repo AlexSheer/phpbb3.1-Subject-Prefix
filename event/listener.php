@@ -95,7 +95,7 @@ class listener implements EventSubscriberInterface
 			{
 				$subject = explode(']', $subject);
 				$subject = array_pop($subject);
-				$subject = substr($subject, 0, -1);
+				$subject = mb_substr($subject, 0, -1);
 			}
 
 			$options = $options_second = array(0 => $this->user->lang['SELECT']);
