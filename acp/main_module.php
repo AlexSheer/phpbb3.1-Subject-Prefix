@@ -28,8 +28,8 @@ class main_module
 		$prefixes_second		= $config_text->get('sub_prfx_second');
 		$prefixes_second		= ($prefixes_second) ? explode(',', $prefixes_second) : array();
 
-
-		$forums			= explode(',', $config['sub_prfx_forums']);
+		$forums			= $config_text->get('sub_prfx_forums');
+		$forums			= ($forums) ? explode(',', $forums) : array();
 
 		$exclude_forums		= $request->variable('forum_id', $forums);
 		$action				= $request->variable('action', '');
@@ -39,7 +39,7 @@ class main_module
 		$prefix_second_name	= $request->variable('prefix_name_second', '', true);
 		$delete				= $request->variable('del', 0);
 
-		if($action == 'delete')
+		if ($action == 'delete')
 		{
 			unset($prefixes[$delete]);
 			$prefixes = implode(',', $prefixes);
@@ -48,7 +48,7 @@ class main_module
 			trigger_error($user->lang['UPDATE_CONFIG_SUCCESS'] . adm_back_link($this->u_action));
 		}
 
-		if($action == 'delete_second')
+		if ($action == 'delete_second')
 		{
 			unset($prefixes_second[$delete]);
 			$prefixes_second = implode(',', $prefixes_second);
@@ -100,10 +100,10 @@ class main_module
 			{
 				trigger_error('FORM_INVALID');
 			}
-			$config->set('sub_prfx_forums', implode(',', $exclude_forums));
+			$config_text->set('sub_prfx_forums', implode(',', $exclude_forums));
 
 			$prefixes_ary = implode(',', $prefixes_ary);
-			if($prefix_name)
+			if ($prefix_name)
 			{
 				if($prefixes_ary)
 				{
@@ -115,7 +115,7 @@ class main_module
 				}
 			}
 			$prefixes_second_ary = implode(',', $prefixes_second_ary);
-			if($prefix_second_name)
+			if ($prefix_second_name)
 			{
 				if($prefixes_second_ary)
 				{
@@ -125,7 +125,6 @@ class main_module
 				{
 					$prefixes_second_ary = $prefix_second_name;
 				}
-
 			}
 			$config_text->set('sub_prfx', $prefixes_ary);
 			$config_text->set('sub_prfx_second', $prefixes_second_ary);
