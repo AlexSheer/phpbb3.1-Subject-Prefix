@@ -83,10 +83,10 @@ class listener implements EventSubscriberInterface
 	{
 		$mode = $event['mode'];
 		$post_data = $event['post_data'];
-		$forums = explode(',', $this->config['sub_prfx_forums']);
+		$forums = explode(',', (string) $this->config_text->get['sub_prfx_forums']);
 		$topic_first_post_id	= (isset($post_data['topic_first_post_id'])) ? $post_data['topic_first_post_id'] : 0;
 		$post_id				= (isset($post_data['post_id'])) ? $post_data['post_id'] : 0;
-		if(in_array($event['post_data']['forum_id'], $forums) && ($mode == 'post' || $mode == 'edit') && ($post_id == $topic_first_post_id || !$topic_first_post_id))
+		if (in_array($event['post_data']['forum_id'], $forums) && ($mode == 'post' || $mode == 'edit') && ($post_id == $topic_first_post_id || !$topic_first_post_id))
 		{
 			$prefix =			$this->request->variable('subprfx', 0);
 			$prefix_second =	$this->request->variable('subprfx_second', 0);
@@ -102,7 +102,7 @@ class listener implements EventSubscriberInterface
 			$options =			array_merge($options, explode(',', (string) $this->config_text->get('sub_prfx')));
 			$options_second =	array_merge($options_second, explode(',', (string) $this->config_text->get('sub_prfx_second')));
 
-			if($prefix)
+			if ($prefix)
 			{
 				$second = ($prefix_second) ? '['.$options_second[$prefix_second] . '] ' : '';
 				$post_data['post_subject'] = '['. $options[$prefix] . ']' . (($second) ?: ' ') .$subject;
@@ -126,7 +126,7 @@ class listener implements EventSubscriberInterface
 		$forums = explode(',', $this->config['sub_prfx_forums']);
 		if (in_array($event['forum_id'], $forums) && ($mode == 'post' || $mode == 'edit') && ($post_id == $topic_first_post_id || !$topic_first_post_id))
 		{
-			if($mode == 'edit')
+			if ($mode == 'edit')
 			{
 				$subject_data = $event['post_data']['post_subject'];
 				$subject_data = explode(']', $subject_data);
@@ -149,7 +149,7 @@ class listener implements EventSubscriberInterface
 			$subprfx_second =	$this->request->variable('subprfx_second', $second_key);
 
 			$select = '';
-			if($options[1])
+			if ($options[1])
 			{
 				foreach($options as $key => $value)
 				{
@@ -158,7 +158,7 @@ class listener implements EventSubscriberInterface
 			}
 
 			$select_second = '';
-			if($options_second[1])
+			if ($options_second[1])
 			{
 				foreach($options_second as $key => $value)
 				{
