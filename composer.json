@@ -2,14 +2,14 @@
     "name": "sheer/sub_prfx",
     "type": "phpbb-extension",
     "description": "Subject prefix",
-    "homepage": "http://www.phpbbguru.net",
-    "version": "1.0.0",
-    "time": "2015-07-05",
+    "homepage": "https://www.phpbbguru.net/community/viewtopic.php?f=59&t=47946#p514500",
+    "version": "1.0.1",
+    "time": "2018-09-20",
     "license": "GPL-2.0",
     "authors": [
         {
             "name": "Sheer",
-            "homepage": "http://www.phpbbguru.net",
+            "homepage": "https://www.phpbbguru.net/community/",
             "role": "Developer"
         }
     ],
