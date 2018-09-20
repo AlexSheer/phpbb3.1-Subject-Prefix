@@ -15,7 +15,7 @@ class main_module
 
 	function main($id, $mode)
 	{
-		global $user, $template, $request, $config, $phpbb_container;
+		global $user, $template, $request, $phpbb_container;
 
 		$this->page_title = $user->lang('ACP_SUB_PREFIX');
 		$this->tpl_name = 'acp_sub_prfx_body';
@@ -29,7 +29,7 @@ class main_module
 		$prefixes_second		= ($prefixes_second) ? explode(',', $prefixes_second) : array();
 
 		$forums			= $config_text->get('sub_prfx_forums');
-		$forums			= ($forums) ? explode(',', $forums) : array();
+		$forums			= ($forums) ? explode(',', $forums) : array(0);
 
 		$exclude_forums		= $request->variable('forum_id', $forums);
 		$action				= $request->variable('action', '');
