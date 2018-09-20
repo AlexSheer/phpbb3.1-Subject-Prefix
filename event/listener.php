@@ -40,9 +40,6 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\request\request_interface */
 	protected $request;
 
-	/** @var \phpbb\config\config */
-	protected $config;
-
 	/** @var \phpbb\config\db_text */
 	protected $config_text;
 
@@ -56,7 +53,6 @@ class listener implements EventSubscriberInterface
 		$phpbb_root_path,
 		\phpbb\template\template $template,
 		\phpbb\request\request_interface $request,
-		\phpbb\config\config $config,
 		\phpbb\config\db_text $config_text,
 		\phpbb\user $user
 	)
@@ -123,7 +119,7 @@ class listener implements EventSubscriberInterface
 		$topic_first_post_id	= (isset($event['post_data']['topic_first_post_id'])) ? $event['post_data']['topic_first_post_id'] : 0;
 		$post_id				= (isset($event['post_data']['post_id'])) ? $event['post_data']['post_id'] : 0;
 
-		$forums = explode(',', $this->config['sub_prfx_forums']);
+		$forums = explode(',', (string) $this->config_text->get('sub_prfx_forums'));
 		if (in_array($event['forum_id'], $forums) && ($mode == 'post' || $mode == 'edit') && ($post_id == $topic_first_post_id || !$topic_first_post_id))
 		{
 			if ($mode == 'edit')
