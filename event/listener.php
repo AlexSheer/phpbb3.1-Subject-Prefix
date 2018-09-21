@@ -79,7 +79,7 @@ class listener implements EventSubscriberInterface
 	{
 		$mode = $event['mode'];
 		$post_data = $event['post_data'];
-		$forums = explode(',', (string) $this->config_text->get['sub_prfx_forums']);
+		$forums = explode(',', (string) $this->config_text->get('sub_prfx_forums'));
 		$topic_first_post_id	= (isset($post_data['topic_first_post_id'])) ? $post_data['topic_first_post_id'] : 0;
 		$post_id				= (isset($post_data['post_id'])) ? $post_data['post_id'] : 0;
 		if (in_array($event['post_data']['forum_id'], $forums) && ($mode == 'post' || $mode == 'edit') && ($post_id == $topic_first_post_id || !$topic_first_post_id))
