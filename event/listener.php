@@ -60,7 +60,6 @@ class listener implements EventSubscriberInterface
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->template = $template;
 		$this->request = $request;
-		$this->config = $config;
 		$this->user = $user;
 		$this->config_text = $config_text;
 	}
